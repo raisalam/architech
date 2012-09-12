@@ -1,5 +1,12 @@
 package com.api.constants;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ValidationConstants.
+ * 
+ * @author Rais Alam
+ * @date Sep 12, 2012
+ */
 public interface ValidationConstants
 {
 

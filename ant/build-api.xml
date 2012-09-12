@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+ Build file for the xaR api project.
+-->
+<project name="project-api">
+
+	<property file="ant/build.properties" />
+	<property name="dir.module" value="${api.module.dir}"/>	
+	<property name="api.module.jarname" value="${api.module.jarname}"/>
+	<import file="build-common.xml"/>
+	
+	
+    <target name="jar" depends="compile, replacetoken">	
+	<jar destfile="${project.dist.dir}/jar/${api.module.jarname}" filesetmanifest="merge">	
+			<fileset dir="${project.build.dir}/${dir.module}">
+			<exclude name="**/*Test*"/>
+			<exclude name="**/*test*"/>
+			</fileset>			
+			<manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Implementation-Version" value="1.0.0.1"/>
+				<attribute name="Implementation-Date" value="${TODAY}" />
+                <attribute name="Implementation-Vendor" value="Rais Alam"/>
+                <attribute name="Implementation-Vendor-Id" value="Rais Alam"/>
+                <attribute name="Implementation-Title" value="Implementation"/>                
+                <section name="com.javarmi.plugin">
+                    <attribute name="Module-Class" value="Plugin"/>
+                </section>
+            </manifest>
+		</jar>		
+	
+	</target>	
+	
+	<patternset id="module-library-list">
+		<include name="*.jar"/>
+	</patternset>
+	
+	<patternset id="project-library-list">
+		<include name="*.jar"/>
+	</patternset>
+	
+	<patternset id="generated-library-list">
+		<exclude name="**/*.*"/>
+	</patternset>
+	
+	
+</project> 

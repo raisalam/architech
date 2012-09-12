@@ -1,11 +1,16 @@
 package com.api.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationException.
+ *
+ * @author Rais Alam
+ * @date Sep 12, 2012
+ */
 public class ApplicationException extends FacadeException
 {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -4240929255253664271L;
 
 	/** The error message. */
@@ -19,9 +24,8 @@ public class ApplicationException extends FacadeException
 
 	/**
 	 * Instantiates a new application exception.
-	 * 
-	 * @param message
-	 *            the message
+	 *
+	 * @param message the message
 	 */
 	public ApplicationException(String message)
 	{
@@ -50,21 +54,18 @@ public class ApplicationException extends FacadeException
 
 	/**
 	 * Instantiates a new application exception.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param e
-	 *            the e
+	 *
+	 * @param message the message
+	 * @param e the e
 	 */
 	public ApplicationException(String message, Exception e)
 	{
 		super(message, e);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.zamboni.api.exception.FacadeException#getErrorMessage()
+
+	/* (non-Javadoc)
+	 * @see com.api.exceptions.FacadeException#getErrorMessage()
 	 */
 	@Override
 	public String getErrorMessage()
@@ -72,12 +73,9 @@ public class ApplicationException extends FacadeException
 		return errorMessage;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.zamboni.api.exception.FacadeException#setErrorMessage(java.lang.String
-	 * )
+	
+	/* (non-Javadoc)
+	 * @see com.api.exceptions.FacadeException#setErrorMessage(java.lang.String)
 	 */
 	@Override
 	public void setErrorMessage(String errorMessage)
@@ -85,10 +83,9 @@ public class ApplicationException extends FacadeException
 		this.errorMessage = errorMessage;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.zamboni.api.exception.FacadeException#getErrorPlace()
+	
+	/* (non-Javadoc)
+	 * @see com.api.exceptions.FacadeException#getErrorPlace()
 	 */
 	@Override
 	public String getErrorPlace()
@@ -96,11 +93,8 @@ public class ApplicationException extends FacadeException
 		return errorPlace;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.zamboni.api.exception.FacadeException#setErrorPlace(java.lang.String)
+	/* (non-Javadoc)
+	 * @see com.api.exceptions.FacadeException#setErrorPlace(java.lang.String)
 	 */
 	@Override
 	public void setErrorPlace(String errorPlace)
@@ -110,7 +104,7 @@ public class ApplicationException extends FacadeException
 
 	/**
 	 * Gets the application error.
-	 * 
+	 *
 	 * @return the application error
 	 */
 	public String getApplicationError()
@@ -120,9 +114,8 @@ public class ApplicationException extends FacadeException
 
 	/**
 	 * Sets the application error.
-	 * 
-	 * @param applicationError
-	 *            the new application error
+	 *
+	 * @param applicationError the new application error
 	 */
 	public void setApplicationError(String applicationError)
 	{

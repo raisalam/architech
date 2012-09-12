@@ -5,6 +5,13 @@ import java.util.Map;
 
 import com.api.vos.ValidationError;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ValidationException.
+ *
+ * @author Rais Alam
+ * @date Sep 12, 2012
+ */
 public class ValidationException extends ApplicationException
 {
 
@@ -79,6 +86,5 @@ public class ValidationException extends ApplicationException
 	{
 		return validationErrors;
 	}
-
 
 }

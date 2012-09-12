@@ -1,0 +1,53 @@
+
+<project name="project-common">
+
+	<property file="build.properties" />
+
+
+	<fileset id="project-libraries" dir="${project.lib.dir}">
+		<patternset refid="project-library-list" />
+	</fileset>
+
+	<fileset id="module-libraries" dir="${dir.module}/lib">
+		<patternset refid="module-library-list" />
+	</fileset>
+
+	<fileset id="generated-libraries" dir="${project.dist.dir}/jar">
+		<patternset refid="generated-library-list" />
+	</fileset>
+
+
+	<!-- Sets up the compiler classpath -->
+	<path id="compile.classpath">
+		<fileset refid="project-libraries" />
+		<fileset refid="module-libraries" />
+		<fileset refid="generated-libraries" />		
+	</path>
+
+
+	<!--
+    Compiles the java source files for the application.
+    -->
+	<target name ="compile" description ="------ Compiling the source files ------">	
+	   <mkdir dir="${project.build.dir}/${dir.module}"/>
+		<echo>Compiling source directory ${project.build.dir}/src...</echo>
+		<javac srcdir="${dir.module}/src" destdir="${project.build.dir}/${dir.module}">
+		 <classpath refid="compile.classpath" />
+		</javac>
+		<javac srcdir="${dir.module}/test" destdir="${project.build.dir}/${dir.module}">
+		 <classpath refid="compile.classpath" />
+		</javac>
+		
+	</target>
+	
+	<target name="replacetoken">
+		<copy toDir="${project.build.dir}/${dir.module}">		
+		  <fileset dir="${dir.module}/resources"   includes="**/*.xml,**/*.vm, **/*.properties"/>		  
+		  <filterset begintoken="@@@" endtoken="@@@">
+		 	<filter token="PROJECT.DATABASE.URL" value="${project.database.url}"/>
+			<filtersfile file="ant/build.properties"/>
+		  </filterset>		 
+		</copy>
+	</target>
+
+</project>

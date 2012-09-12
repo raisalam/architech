@@ -1,0 +1,68 @@
+<project name="Project" default="help" basedir=".">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	
+	<property file="build.properties.example" />
+	
+	
+	<path id="test.class.path">			
+		<pathelement location="${project.build.dir}/api" /> 		
+		<fileset refid="project-libraries" />
+		<fileset refid="core-libraries" />
+		<fileset refid="api-libraries" />
+		<fileset refid="module-libraries" />
+		
+	</path> 
+	
+	<fileset id="project-libraries" dir="${project.lib.dir}">
+		<include name="*.jar"/>
+	</fileset>
+	
+	<fileset id="core-libraries" dir="${core.module.dir}/lib">
+		<include name="*.jar"/>
+	</fileset>
+	<fileset id="api-libraries" dir="${api.module.dir}/lib">
+		<include name="*.jar"/>
+	</fileset>
+	
+	<fileset id="module-libraries" dir="${project.dist.dir}/jar">
+		<include name="${core.module.jarname}"/>
+	</fileset>
+	
+	<target name="test">    	
+	<junit fork="yes" showoutput="yes">	
+		<classpath refid="test.class.path" />		
+		<formatter type="brief" usefile="false"/>
+   
+		<test name="com.api.facade.test.TestUserFacade"/>		
+	     <!--	
+		<test name="com.api.facade.test.TestOtherFacade"/>
+-->		
+		
+	</junit> 
+</target>
+<!--
+<target name="test">    
+	<mkdir dir="${dir.build}/junithtml"/>    
+	<junit fork="yes" showoutput="yes">	
+		<classpath refid="test.class.path" />		
+		
+		
+		<formatter type="xml"/>
+		
+		<batchtest  todir="${dir.build}/junithtml">
+			<fileset dir="${dir.build}/api" includes="**/Test*.class" />
+		</batchtest>	
+	</junit>   		
+	
+	
+	<junitreport todir="${dir.build}/junithtml">
+		<fileset dir="${dir.build}/junithtml">
+			<include name="*.xml"/>
+		</fileset>
+		<report format="frames" todir="${dir.build}/junithtml"/>
+	</junitreport>
+</target>
+-->
+
+
+</project>

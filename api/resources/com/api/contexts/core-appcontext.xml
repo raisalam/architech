@@ -1,0 +1,119 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="project.database.name">myworld</prop>
+				<prop key="project.database.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="project.database.driver">com.mysql.jdbc.Driver</prop>
+                <prop key="project.database.url">jdbc:mysql://localhost:3306/myworld</prop>
+                <prop key="project.database.username">root</prop>
+                <prop key="project.database.password">root</prop>
+                <prop key="project.connectionpool.testConnectionOnCheckout">true</prop>
+            </props>
+        </property>
+ 
+        <property name="locations">
+            <list>
+             <!--   <value>classpath:/META-INF/properties/local.properties</value>  --> 
+               <value>classpath:com/api/properties/systemConfig.properties</value>   
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound"  value="true"/>
+      
+           
+    </bean>
+
+
+	<bean id="projectDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${project.database.driver}" />
+		<property name="jdbcUrl" value="${project.database.url}" />
+		<property name="user" value="${project.database.username}" />
+		<property name="password" value="${project.database.password}" />
+		<property name="testConnectionOnCheckout" value="${project.connectionpool.testConnectionOnCheckout}" />
+	</bean>
+	
+	<bean id="mySessionFactory"	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="projectDataSource" />
+		<property name="packagesToScan" value="com.core.model" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${project.database.dialect}</prop>
+				<prop key="hibernate.format_sql">true</prop>	
+				<prop key="hibernate.generate_statistics">true</prop>				
+ 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider</prop>
+				<prop key="hibernate.show_sql">true</prop>	 
+				<!--  
+				    <prop key="hibernate.cache.provider_configuration_file_resource_path">classpath*:com/api/cache/ehcache.xml</prop>
+					<prop key="hibernate.hbm2ddl.auto">create</prop>
+				-->
+			</props>
+		</property>
+	</bean>
+	
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com/api/properties/errorMessages</value>
+                <value>com/api/properties/resource</value>
+            </list>
+        </property>
+    </bean>
+	
+	
+	
+	<bean id="baseDao" abstract="true" class="com.core.dao.impl.BaseDao">	    
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+	<bean id="userDAO" class="com.core.dao.impl.UserDAOImpl" parent="baseDao"/>	
+		
+	<bean id="resourceManager" class="com.core.manager.impl.ResourceManagerImpl">	
+		<property name="messageSource" ref="messageSource"/>		
+	</bean>
+	
+	<bean id="validationManager" class="com.core.manager.impl.ValidationManagerImpl">
+		<property name="resourceManager" ref="resourceManager" />
+	</bean>
+	
+	<bean id="baseManager" abstract="true" class="com.core.manager.impl.BaseManager">
+	    <property name="validationManager" ref="validationManager" />	
+	    <property name="resourceManager" ref="resourceManager" />
+	</bean>
+	
+	
+	<bean id="userManager" class="com.core.manager.impl.UserManagerImpl" parent="baseManager">			
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
+   
+	
+</beans>

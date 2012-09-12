@@ -1,11 +1,19 @@
+/*
+ * 
+ */
 package com.api.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FacadeException.
+ *
+ * @author Rais Alam
+ * @date Sep 12, 2012
+ */
 public class FacadeException extends Exception
 {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1141777051696763825L;
 
 	/** The error message. */
@@ -19,9 +27,8 @@ public class FacadeException extends Exception
 
 	/**
 	 * Instantiates a new facade exception.
-	 * 
-	 * @param exception
-	 *            the exception
+	 *
+	 * @param exception the exception
 	 */
 	public FacadeException(Exception exception)
 	{
@@ -32,11 +39,9 @@ public class FacadeException extends Exception
 
 	/**
 	 * Instantiates a new facade exception.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param e
-	 *            the e
+	 *
+	 * @param message the message
+	 * @param e the e
 	 */
 	public FacadeException(String message, Exception e)
 	{
@@ -59,9 +64,8 @@ public class FacadeException extends Exception
 
 	/**
 	 * Instantiates a new facade exception.
-	 * 
-	 * @param message
-	 *            the message
+	 *
+	 * @param message the message
 	 */
 	public FacadeException(String message)
 	{
@@ -81,7 +85,7 @@ public class FacadeException extends Exception
 
 	/**
 	 * Gets the error message.
-	 * 
+	 *
 	 * @return the error message
 	 */
 	public String getErrorMessage()
@@ -91,9 +95,8 @@ public class FacadeException extends Exception
 
 	/**
 	 * Sets the error message.
-	 * 
-	 * @param errorMessage
-	 *            the new error message
+	 *
+	 * @param errorMessage the new error message
 	 */
 	public void setErrorMessage(String errorMessage)
 	{
@@ -102,7 +105,7 @@ public class FacadeException extends Exception
 
 	/**
 	 * Gets the error place.
-	 * 
+	 *
 	 * @return the error place
 	 */
 	public String getErrorPlace()
@@ -112,9 +115,8 @@ public class FacadeException extends Exception
 
 	/**
 	 * Sets the error place.
-	 * 
-	 * @param errorPlace
-	 *            the new error place
+	 *
+	 * @param errorPlace the new error place
 	 */
 	public void setErrorPlace(String errorPlace)
 	{
@@ -123,7 +125,7 @@ public class FacadeException extends Exception
 
 	/**
 	 * Gets the system error.
-	 * 
+	 *
 	 * @return the system error
 	 */
 	public String getSystemError()
@@ -133,9 +135,8 @@ public class FacadeException extends Exception
 
 	/**
 	 * Sets the system error.
-	 * 
-	 * @param systemError
-	 *            the new system error
+	 *
+	 * @param systemError the new system error
 	 */
 	public void setSystemError(String systemError)
 	{

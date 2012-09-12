@@ -1,5 +1,12 @@
 package com.api.exceptions;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SystemException.
+ *
+ * @author Rais Alam
+ * @date Sep 12, 2012
+ */
 public class SystemException extends RuntimeException
 {
 

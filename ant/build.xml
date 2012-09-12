@@ -1,0 +1,47 @@
+<project name="MyWorld" default="help" basedir="../">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<property file="ant/build.properties" />
+	<fail unless="project.build.dir">Build directory is not set. Please set 'project.build.dir' property</fail>
+	<fail unless="project.dist.dir">Dist directory is not set. Please set 'project.dist.dir' property</fail>
+	<fail unless="project.lib.dir">Project lib is not set. Please set 'project.lib.dir' property</fail>	
+	<fail unless="project.database.name">Database name is not set. Please set 'project.database.name' property</fail>
+	<fail unless="project.database.driver">Database driver is not set. Please set 'project.database.driver' property</fail>
+	<fail unless="project.database.url">Database url is not set. Please set 'project.database.url</fail>
+	<fail unless="project.database.username">Database username is not set. Please set 'project.database.username' property</fail>
+	<fail unless="project.database.password">Database password is not set. Please set 'project.database.password' property</fail>
+	<fail unless="project.database.dialect">Database dialect is not set. Please set 'project.database.dialect' property</fail>
+	
+
+	<target name="help" description="Display detailed usage information">
+		<echo>Detailed help...</echo>
+	</target>
+
+	<target name="clean" description="Deletes all generated files and directories">
+		<delete dir="${project.build.dir}" />
+		<delete dir="${project.dist.dir}" />
+		<antcall target="prepare" />
+	</target>
+
+	<target name="prepare" description="Display detailed usage information">
+		<mkdir dir="${project.build.dir}" />
+		<mkdir dir="${project.dist.dir}/jar" />
+		<mkdir dir="${project.dist.dir}/war" />
+		<tstamp>
+			<format property="DATE" pattern="yyyy-MM-dd hh:mm:ss" />
+		</tstamp>
+	</target>
+
+	<target name="build" depends ="clean" description="Building application">		
+		<ant antfile="ant/build-api.xml" target="jar" />		
+		<ant antfile="ant/build-core.xml" target="jar" />				
+	
+	</target>
+	
+	<target name="test" depends ="clean" description="Building application">
+		<ant antfile="ant/build-api.xml" target="jar" />	
+		<ant antfile="ant/build-core.xml" target="jar" />
+		<ant antfile="ant/test-build.xml" target="test" />	
+	</target>
+	
+</project>
